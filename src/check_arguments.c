@@ -6,13 +6,13 @@
 /*   By: mademir <mademir@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/11 14:34:27 by mademir       #+#    #+#                 */
-/*   Updated: 2023/11/11 17:33:57 by mademir       ########   odam.nl         */
+/*   Updated: 2023/11/13 14:45:11 by mademir       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	isnum(char *num)
+static bool	check_num(char *num)
 {
 	int	i;
 
@@ -22,39 +22,39 @@ static int	isnum(char *num)
 	while (num[i])
 	{
 		if (!ft_isdigit(num[i]))
-			return (0);
+			return (false);
 		i++;
 	}
-	return (1);
+	return (true);
 }
 
-static int	check_dup(long num, char **argv, int i)
+static bool	check_dup(char **argv, long num, int i)
 {
 	i++;
 	while (argv[i])
 	{
-		if (ft_atoi(argv[i]) == num)
-			return (1);
+		if (ft_atol(argv[i]) == num)
+			return (true);
 		i++;
 	}
-	return (0);
+	return (false);
 }
 
-void	check_args(int argc, char **argv)
+void	checkArgs(char **argv)
 {
 	int		i;
-	long	tmp;
+	long	num;
 
 	i = 1;
 	while (argv[i])
 	{
-		if (!isnum)
-			err_msg("Error");
-		tmp = ft_atol(argv[i]);
-		if (tmp > 2147483647 || tmp < -2147483648)
-			err_msg("Error");
-		if (check_dup(tmp, argv, i))
-			err_msg("Error");
+		if (!check_num(argv[i]))
+			errMsg("Error");
+		num = ft_atol(argv[i]);
+		if (num > 2147483647 || num < -2147483648)
+			errMsg("Error");
+		if (check_dup(argv, num, i))
+			errMsg("Error");
 		i++;
 	}
 }
