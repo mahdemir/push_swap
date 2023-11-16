@@ -6,7 +6,7 @@
 /*   By: mademir <mademir@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/12 06:31:28 by mademir       #+#    #+#                 */
-/*   Updated: 2023/11/13 11:38:48 by mademir       ########   odam.nl         */
+/*   Updated: 2023/11/16 16:12:53 by mademir       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,19 @@ t_stack	*findMax(t_stack *stack)
 		stack = stack->next;
 	}
 	return (max);
+}
+
+t_stack	*findCheapest(t_stack *stack)
+{
+	if (!stack)
+		return ;
+	while (stack)
+	{
+		if (stack->cheapest == true)
+		{
+			return (stack);
+		}
+		stack = stack->next;
+	}
+	return (NULL);
 }

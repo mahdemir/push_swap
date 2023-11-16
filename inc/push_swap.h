@@ -6,7 +6,7 @@
 /*   By: mademir <mademir@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/11 10:26:25 by mademir       #+#    #+#                 */
-/*   Updated: 2023/11/13 14:44:30 by mademir       ########   odam.nl         */
+/*   Updated: 2023/11/16 16:26:10 by mademir       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef	struct s_stack
 {
 	int				num;
 	int				index;
-	int				price;
+	int				push_cost;
 	bool			above_middle;
 	bool			cheapest;
 
@@ -47,6 +47,7 @@ t_stack	*findLast(t_stack *stack);
 t_stack *findMax(t_stack *stack);
 void	sortThree(t_stack **stack);
 void	sortAlgorithm(t_stack **a, t_stack **b);
+t_stack	*findCheapest(t_stack *stack);
 
 void	initStack(t_stack **stack, int argc, char **argv);
 

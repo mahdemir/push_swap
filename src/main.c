@@ -6,7 +6,7 @@
 /*   By: mademir <mademir@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/11 11:20:41 by mademir       #+#    #+#                 */
-/*   Updated: 2023/11/13 11:38:16 by mademir       ########   odam.nl         */
+/*   Updated: 2023/11/16 00:48:46 by mademir       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int	main(int argc, char **argv)
 		else
 			sortAlgorithm(&a, &b);
 	}
+
 	return (0);
 }
