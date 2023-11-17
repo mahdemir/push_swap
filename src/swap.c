@@ -6,7 +6,7 @@
 /*   By: mademir <mademir@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/12 10:21:32 by mademir       #+#    #+#                 */
-/*   Updated: 2023/11/12 13:33:57 by mademir       ########   odam.nl         */
+/*   Updated: 2023/11/17 14:53:20 by mademir       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,21 @@ static void	swap(t_stack **head)
 	*head = tmp;
 }
 
-void	sa(t_stack **a, bool print)
+void	sa(t_stack **a)
 {
 	swap(a);
-	if (print)
-		write(1, "sa\n", 3);
+	write(1, "sa\n", 3);
 }
 
-void	sb(t_stack **b, bool print)
+void	sb(t_stack **b)
 {
 	swap(b);
-	if (print)
-		write(1, "sb\n", 3);
+	write(1, "sb\n", 3);
 }
 
-void	ss(t_stack **a, t_stack **b, bool print)
+void	ss(t_stack **a, t_stack **b)
 {
 	swap(a);
 	swap(b);
-	if (print)
-		write(1, "ss\n", 3);
+	write(1, "ss\n", 3);
 }

@@ -1,0 +1,14 @@
+# Target labels
+ imgui-populate
+# Source files and their labels
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/CMakeFiles/imgui-populate
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/CMakeFiles/imgui-populate.rule
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/CMakeFiles/imgui-populate-complete.rule
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-build.rule
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-configure.rule
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-download.rule
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-install.rule
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-mkdir.rule
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-patch.rule
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-test.rule
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-update.rule

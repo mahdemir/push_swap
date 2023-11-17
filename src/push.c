@@ -6,7 +6,7 @@
 /*   By: mademir <mademir@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/12 13:16:05 by mademir       #+#    #+#                 */
-/*   Updated: 2023/11/13 14:48:41 by mademir       ########   odam.nl         */
+/*   Updated: 2023/11/17 14:50:50 by mademir       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,14 @@ static void	push(t_stack **dst, t_stack **src)
 	(*dst)->next = tmp;
 }
 
-void	pa(t_stack **a, t_stack **b, bool print)
+void	pa(t_stack **a, t_stack **b)
 {
 	push(a, b);
-	if (print)
-		write(1, "pa\n", 3);
+	write(1, "pa\n", 3);
 }
 
-void	pb(t_stack **b, t_stack **a, bool print)
+void	pb(t_stack **b, t_stack **a)
 {
 	push(b, a);
-	if (print)
-		write(1, "pb\n", 3);
+	write(1, "pb\n", 3);
 }

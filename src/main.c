@@ -6,7 +6,7 @@
 /*   By: mademir <mademir@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/11 11:20:41 by mademir       #+#    #+#                 */
-/*   Updated: 2023/11/16 00:48:46 by mademir       ########   odam.nl         */
+/*   Updated: 2023/11/17 14:47:28 by mademir       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,19 @@ int	main(int argc, char **argv)
 		return (1);
 	if (argc == 2)
 		argv = ft_split(argv[1], ' ');
-	checkArgs(argv);
-	initStack(&a, argc, argv);
-	if (!checkSort(a))
+	check_args(argc, argv);
+	init_stack(&a, argc, argv);
+	if (check_sort(a) == false)
 	{
-		if (stackLen(a) == 2)
-			sa(&a, true);
-		else if (stackLen(a) == 3)
-			sortThree(&a);
+		if (stack_len(a) == 2)
+			sa(&a);
+		else if (stack_len(a) == 3)
+			sort_three(&a);
 		else
-			sortAlgorithm(&a, &b);
+			sort_algorithm(&a, &b);
 	}
-
+	free_stack(&a);
+	if (argc == 2)
+		free_matrix(argv);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mademir <mademir@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/11 14:34:27 by mademir       #+#    #+#                 */
-/*   Updated: 2023/11/13 14:45:11 by mademir       ########   odam.nl         */
+/*   Updated: 2023/11/17 11:03:43 by mademir       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,23 @@ static bool	check_dup(char **argv, long num, int i)
 	return (false);
 }
 
-void	checkArgs(char **argv)
+void	check_args(int argc, char **argv)
 {
 	int		i;
 	long	num;
 
 	i = 1;
+	if (argc == 2)
+		i = 0;
 	while (argv[i])
 	{
 		if (!check_num(argv[i]))
-			errMsg("Error");
+			err_msg("Error");
 		num = ft_atol(argv[i]);
 		if (num > 2147483647 || num < -2147483648)
-			errMsg("Error");
+			err_msg("Error");
 		if (check_dup(argv, num, i))
-			errMsg("Error");
+			err_msg("Error");
 		i++;
 	}
 }

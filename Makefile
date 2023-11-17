@@ -32,9 +32,22 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		rotate.c \
 		rev_rotate.c \
 		sort_three.c \
-		algorithm.c)
-
+		algorithm.c \
+		algorithm_utils.c \
+		init_list_a.c \
+		init_list_b.c)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+BONUS_SRC = bonus/checker.c \
+			bonus/checker_utils.c \
+			bonus/push_bonus.c \
+			bonus/swap_bonus.c \
+			bonus/rotate_bonus.c \
+			bonus/rev_rotate_bonus.c \
+			bonus/check_arguments_bonus.c \
+
+
+BONUS_OBJ = $(BONUS_SRC:bonus/%.c=$(OBJ_DIR)/%.o)
 
 ##### COMPILATION ##############################################################
 CC		= cc
@@ -44,6 +57,7 @@ IFLAGS	= -I $(INC_DIR)
 SHELL	:= /bin/bash
 
 NAME	= push_swap
+BONUS_NAME = checker
 
 ##### RULES ####################################################################
 
@@ -67,7 +81,7 @@ clean:
 
 fclean: clean
 	@make -s fclean -C $(LIBFT_PATH)
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(BONUS_NAME)
 	@echo -e "${BOLD}${RED}> Cleaning has been done ❌${END}"
 
 re: fclean all
@@ -80,4 +94,14 @@ lft:
 		echo -e "\n${BOLD}${GREEN}[ OK ] | Libft built successfully!${END}"; \
 	fi
 
-.PHONY: all clean fclean re lft
+bonus: $(BONUS_NAME)
+
+$(BONUS_NAME): $(BONUS_OBJ) | lft
+	@echo -e "${BOLD}${YELLOW}[ .. ] | Compiling checker..${END}"
+	@$(CC) $(CFLAGS) $^ $(LIBFT_LIB) -o $@
+	@echo -e "${BOLD}${GREEN}[ OK ] | Compilation is successful! 🎉${END}"
+
+$(OBJ_DIR)/%.o: bonus/%.c | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY: all clean fclean re lft bonus

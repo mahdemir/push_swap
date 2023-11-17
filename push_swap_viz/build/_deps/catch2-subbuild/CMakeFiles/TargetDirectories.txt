@@ -1,0 +1,3 @@
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/catch2-subbuild/CMakeFiles/catch2-populate.dir
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/catch2-subbuild/CMakeFiles/edit_cache.dir
+/Users/mademir/Desktop/42cursus/push_swap/push_swap_viz/build/_deps/catch2-subbuild/CMakeFiles/rebuild_cache.dir

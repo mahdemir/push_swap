@@ -6,13 +6,13 @@
 /*   By: mademir <mademir@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/12 14:54:31 by mademir       #+#    #+#                 */
-/*   Updated: 2023/11/16 16:07:58 by mademir       ########   odam.nl         */
+/*   Updated: 2023/11/17 14:51:45 by mademir       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	revRotate(t_stack **stack)
+static void	rev_rotate(t_stack **stack)
 {
 	int		i;
 	t_stack	*tmp;
@@ -35,24 +35,21 @@ static void	revRotate(t_stack **stack)
 	tmp->next = NULL;
 }
 
-void	rra(t_stack **a, bool print)
+void	rra(t_stack **a)
 {
-	revRotate(a);
-	if (print)
-		write(1, "rra\n", 4);
+	rev_rotate(a);
+	write(1, "rra\n", 4);
 }
 
-void	rrb(t_stack **b, bool print)
+void	rrb(t_stack **b)
 {
-	revRotate(b);
-	if (print)
-		write(1, "rrb\n", 4);
+	rev_rotate(b);
+	write(1, "rrb\n", 4);
 }
 
-void	rrr(t_stack **a, t_stack **b, bool print)
+void	rrr(t_stack **a, t_stack **b)
 {
-	revRotate(a);
-	revRotate(b);
-	if (print)
-		write(1, "rrr\n", 4);
+	rev_rotate(a);
+	rev_rotate(b);
+	write(1, "rrr\n", 4);
 }

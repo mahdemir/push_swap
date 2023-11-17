@@ -2,6 +2,8 @@
 	"files.associations": {
 		"limits.h": "c",
 		"libft.h": "c",
-		"push_swap.h": "c"
+		"push_swap.h": "c",
+		"stack": "c",
+		"checker.h": "c"
 	}
 }

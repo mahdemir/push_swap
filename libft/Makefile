@@ -127,22 +127,9 @@ $(NAME): $(OBJ)
 all: $(NAME)
 
 clean:
-ifeq (re, $(filter re, $(MAKECMDGOALS)))
-	@echo "${BOLD}${RED}  0 % - Deleting $(BUILD) directory ❌${END}"
-else ifeq (clean, $(filter clean, $(MAKECMDGOALS)))
-	@echo "${BOLD}${RED}100 % - Deleting $(BUILD) directory ❌${END}"
-else ifeq (fclean, $(filter fclean, $(MAKECMDGOALS)))
-	@echo "${BOLD}${RED} 50 % - Deleting $(BUILD) directory ❌${END}"
-endif
 	@rm -rf $(BUILD)
 
 fclean: clean
-ifeq (re, $(filter re, $(MAKECMDGOALS)))
-
-	@echo "${BOLD}${RED}  0 % - Deleting $(NAME) library ❌${END}"
-else ifeq (fclean, $(filter fclean, $(MAKECMDGOALS)))
-	@echo "${BOLD}${RED}100 % - Deleting $(NAME) library ❌${END}"
-endif
 	@rm -rf $(NAME) a.out
 
 re: fclean
