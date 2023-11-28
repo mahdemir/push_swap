@@ -16,12 +16,17 @@ WHITE	=$'\033[37m
 BUILD			= .build
 OBJ_DIR			= $(BUILD)/obj
 SRC_DIR			= ./src
+PS_DIR			= ./src/push_swap
+CHECKER_DIR		= ./src/checker
 INC_DIR			= ./inc
 LIBFT_PATH		= ./libft
 LIBFT_LIB		= $(LIBFT_PATH)/libft.a
 PS_HEADER		= $(INC_DIR)/push_swap.h
+SUB_DIR	+= checker \
+			push_swap
+DIRS	:= $(OBJ_DIR) $(addprefix $(OBJ_DIR)/, $(SUB_DIR))
 
-SRC = $(addprefix $(SRC_DIR)/, \
+SRC = $(addprefix $(PS_DIR)/, \
     	main.c \
 		stack_utils.c \
     	init_stack.c \
@@ -36,18 +41,17 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		algorithm_utils.c \
 		init_list_a.c \
 		init_list_b.c)
-OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJ = $(SRC:$(PS_DIR)/%.c=$(OBJ_DIR)/push_swap/%.o)
 
-BONUS_SRC = bonus/checker.c \
-			bonus/checker_utils.c \
-			bonus/push_bonus.c \
-			bonus/swap_bonus.c \
-			bonus/rotate_bonus.c \
-			bonus/rev_rotate_bonus.c \
-			bonus/check_arguments_bonus.c \
-
-
-BONUS_OBJ = $(BONUS_SRC:bonus/%.c=$(OBJ_DIR)/%.o)
+BONUS_SRC = $(addprefix $(CHECKER_DIR)/, \
+				checker.c \
+				checker_utils.c \
+				push_bonus.c \
+				swap_bonus.c \
+				rotate_bonus.c \
+				rev_rotate_bonus.c \
+				check_arguments_bonus.c)
+BONUS_OBJ = $(BONUS_SRC:$(CHECKER_DIR)/%.c=$(OBJ_DIR)/checker/%.o)
 
 ##### COMPILATION ##############################################################
 CC		= cc
@@ -61,18 +65,18 @@ BONUS_NAME = checker
 
 ##### RULES ####################################################################
 
-all: $(NAME)
+all: $(NAME) bonus
 
 $(NAME): $(OBJ) | lft
 	@echo -e "${BOLD}${YELLOW}[ .. ] | Compiling push swap..${END}"
 	@$(CC) $(CFLAGS) $^ $(LIBFT_LIB) -o $@
 	@echo -e "${BOLD}${GREEN}[ OK ] | Compilation is successful! 🎉${END}"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(PS_HEADER) | $(OBJ_DIR)
+$(OBJ_DIR)/push_swap/%.o: $(PS_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(IFLAGS)
 
 $(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(BUILD) $(DIRS)
 
 clean:
 	@make -s clean -C $(LIBFT_PATH)
@@ -101,7 +105,7 @@ $(BONUS_NAME): $(BONUS_OBJ) | lft
 	@$(CC) $(CFLAGS) $^ $(LIBFT_LIB) -o $@
 	@echo -e "${BOLD}${GREEN}[ OK ] | Compilation is successful! 🎉${END}"
 
-$(OBJ_DIR)/%.o: bonus/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/checker/%.o: $(CHECKER_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: all clean fclean re lft bonus
