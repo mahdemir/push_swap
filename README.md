@@ -49,29 +49,22 @@ Pushing nodes from stack_a to stack_b, but sorting them already in desending ord
 ```
 .
 ├── Makefile
+├── README.md
 ├── img
-│   ├── 100_numbers_540steps.gif
-│   └── 500_numbers_5326steps.gif
+│   ├── 100_numbers_540steps.gif
+│   └── 500_numbers_5326steps.gif
 ├── inc
-│   ├── checker.h
-│   └── push_swap.h
-├── libft
-│   ├── Makefile
-│   ├── inc
-│   │   ├── ft_printf.h
-│   │   ├── get_next_line.h
-│   │   └── libft.h
-│   └── src
-│       ├── ...
+│   ├── checker.h
+│   └── push_swap.h
 └── src
     ├── checker
-    │   ├── check_arguments_bonus.c
-    │   ├── checker.c
-    │   ├── checker_utils.c
-    │   ├── push_bonus.c
-    │   ├── rev_rotate_bonus.c
-    │   ├── rotate_bonus.c
-    │   └── swap_bonus.c
+    │   ├── check_arguments_bonus.c
+    │   ├── checker.c
+    │   ├── checker_utils.c
+    │   ├── push_bonus.c
+    │   ├── rev_rotate_bonus.c
+    │   ├── rotate_bonus.c
+    │   └── swap_bonus.c
     └── push_swap
         ├── algorithm.c
         ├── algorithm_utils.c
