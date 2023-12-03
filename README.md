@@ -5,9 +5,9 @@ the lowest possible number of actions. To succeed you’ll have to manipulate va
 ## 🛠️ Compilation
 The Makefile can make two programs, push_swap and checker.
 \
-First clone this repository and go in to the root of the directory by running:
+Clone this repository and go in to the root of the directory by running:
 ```
-git clone https://github.com/mahdemir/push_swap && cd push_swap
+git clone https://github.com/mahdemir/push_swap/ && cd push_swap
 ```
 
 ### 🔄 Push swap
