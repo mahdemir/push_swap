@@ -21,6 +21,7 @@ CHECKER_DIR		= ./src/checker
 INC_DIR			= ./inc
 LIBFT_PATH		= ./libft
 LIBFT_LIB		= $(LIBFT_PATH)/libft.a
+LIBFT_REPO		= https://github.com/mahdemir/libft.git
 PS_HEADER		= $(INC_DIR)/push_swap.h
 SUB_DIR	+= checker \
 			push_swap
@@ -61,16 +62,22 @@ IFLAGS	= -I $(INC_DIR)
 SHELL	:= /bin/bash
 
 NAME	= push_swap
-BONUS_NAME = checker
+CH_NAME = checker
+CHECKSUM_FILE := $(BUILD)/last_build_checksum
 
 ##### RULES ####################################################################
 
-all: $(NAME) bonus
+all: lft $(NAME) bonus
+	@if [ -e "$(CHECKSUM_FILE)" ] && [ "$$(cat $(CHECKSUM_FILE))" = "$$(make checksum)" ]; then \
+		echo -e "${BOLD}${GREEN}[ OK ]  Push swap & checker is already built!${END}"; \
+	else \
+		make checksum > "$(CHECKSUM_FILE)"; \
+		echo -e "${BOLD}${GREEN}[ OK ]  Push swap & checker built successfully! 🎉${END}"; \
+	fi \
 
 $(NAME): $(OBJ) | lft
-	@echo -e "${BOLD}${YELLOW}[ .. ] | Compiling push swap..${END}"
+	@echo -e "${BOLD}${YELLOW}[ .. ]  Compiling push swap..${END}"
 	@$(CC) $(CFLAGS) $^ $(LIBFT_LIB) -o $@
-	@echo -e "${BOLD}${GREEN}[ OK ] | Compilation is successful! 🎉${END}"
 
 $(OBJ_DIR)/push_swap/%.o: $(PS_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(IFLAGS)
@@ -79,33 +86,37 @@ $(OBJ_DIR):
 	@mkdir -p $(BUILD) $(DIRS)
 
 clean:
-	@make -s clean -C $(LIBFT_PATH)
 	@rm -rf $(BUILD)
-	@echo -e "${BOLD}${RED}> All objects files have been deleted ❌${END}"
+	@if [ -d "$(LIBFT_PATH)" ]; then \
+		make -s clean -C $(LIBFT_PATH); \
+	fi
 
-fclean: clean
-	@make -s fclean -C $(LIBFT_PATH)
-	@rm -f $(NAME) $(BONUS_NAME)
-	@echo -e "${BOLD}${RED}> Cleaning has been done ❌${END}"
+fclean:
+	@rm -rf $(BUILD)
+	@rm -f $(NAME) $(CH_NAME)
+	@if [ -d "$(LIBFT_PATH)" ]; then \
+		make -s fclean -C $(LIBFT_PATH); \
+	fi
 
 re: fclean all
 
 lft:
-	@if [ -f $(LIBFT_LIB) ]; then \
-		echo -e "${BOLD}${GREEN}[ OK ] | Libft is already built.${END}"; \
-	else \
-		make -s -C $(LIBFT_PATH); \
-		echo -e "\n${BOLD}${GREEN}[ OK ] | Libft built successfully!${END}"; \
+	@if [ ! -d "$(LIBFT_PATH)" ]; then \
+		echo -e "${BOLD}${GRAY}    > - Cloning $(LIBFT_REPO) ..${END}"; \
+		git clone $(LIBFT_REPO) $(LIBFT_PATH) 2>/dev/null; \
 	fi
+	@make -s -C $(LIBFT_PATH)
 
-bonus: $(BONUS_NAME)
+bonus: $(CH_NAME)
 
-$(BONUS_NAME): $(BONUS_OBJ) | lft
-	@echo -e "${BOLD}${YELLOW}[ .. ] | Compiling checker..${END}"
+$(CH_NAME): $(BONUS_OBJ) | lft
+	@echo -e "${BOLD}${YELLOW}[ .. ]  Compiling checker..${END}"
 	@$(CC) $(CFLAGS) $^ $(LIBFT_LIB) -o $@
-	@echo -e "${BOLD}${GREEN}[ OK ] | Compilation is successful! 🎉${END}"
 
 $(OBJ_DIR)/checker/%.o: $(CHECKER_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
+
+checksum:
+	@find $(SRC_DIR) -name '*.c' | xargs cat | shasum -a 256 | cut -d ' ' -f 1
 
 .PHONY: all clean fclean re lft bonus
