@@ -22,6 +22,7 @@ INC_DIR			= ./inc
 LIBFT_PATH		= ./libft
 LIBFT_LIB		= $(LIBFT_PATH)/libft.a
 LIBFT_REPO		= https://github.com/mahdemir/libft.git
+PULL_LOG		= ./pull_log
 PS_HEADER		= $(INC_DIR)/push_swap.h
 SUB_DIR	+= checker \
 			push_swap
@@ -69,7 +70,7 @@ CHECKSUM_FILE := $(BUILD)/last_build_checksum
 
 all: lft $(NAME) bonus
 	@if [ -e "$(CHECKSUM_FILE)" ] && [ "$$(cat $(CHECKSUM_FILE))" = "$$(make checksum)" ]; then \
-		echo -e "${BOLD}${GREEN}[ OK ]  Push swap & checker is already built!${END}"; \
+		echo -e "${BOLD}${GREEN}[ OK ]  Push swap & checker are already built!${END}"; \
 	else \
 		make checksum > "$(CHECKSUM_FILE)"; \
 		echo -e "${BOLD}${GREEN}[ OK ]  Push swap & checker built successfully! 🎉${END}"; \
@@ -86,25 +87,40 @@ $(OBJ_DIR):
 	@mkdir -p $(BUILD) $(DIRS)
 
 clean:
-	@rm -rf $(BUILD)
 	@if [ -d "$(LIBFT_PATH)" ]; then \
 		make -s clean -C $(LIBFT_PATH); \
+	else \
+		echo -e "${BOLD}${PURPLE}    > - All objects files have been deleted ❌${END}"; \
 	fi
+	@rm -rf $(BUILD)
 
 fclean:
-	@rm -rf $(BUILD)
-	@rm -f $(NAME) $(CH_NAME)
 	@if [ -d "$(LIBFT_PATH)" ]; then \
 		make -s fclean -C $(LIBFT_PATH); \
+	else \
+		echo -e "${BOLD}${PURPLE}    > - All objects files have been deleted ❌${END}"; \
+		echo -e "${BOLD}${RED}    > - Cleaning has been done ❌${END}"; \
 	fi
+	@rm -rf $(BUILD) $(LIBFT_PATH)
+	@rm -f $(NAME) $(CH_NAME) $(PULL_LOG)
 
 re: fclean all
 
 lft:
 	@if [ ! -d "$(LIBFT_PATH)" ]; then \
-		echo -e "${BOLD}${GRAY}    > - Cloning $(LIBFT_REPO) ..${END}"; \
-		git clone $(LIBFT_REPO) $(LIBFT_PATH) 2>/dev/null; \
-	fi
+		echo -e "${BOLD}${GRAY}    > - Cloning $(LIBFT_REPO) ..${END}\n"; \
+		git clone $(LIBFT_REPO) $(LIBFT_PATH) &> /dev/null; \
+    else \
+        echo -e "${BOLD}${GRAY}    > - Checking for updates in $(LIBFT_REPO) ..${END}"; \
+        LOCAL_HASH=$$(git -C $(LIBFT_PATH) rev-parse HEAD); \
+        REMOTE_HASH=$$(git -C $(LIBFT_PATH) ls-remote origin -h refs/heads/main | cut -f1); \
+        if [ "$$LOCAL_HASH" = "$$REMOTE_HASH" ]; then \
+			echo -e "${BOLD}${GRAY}    > - Libft is already up to date!${END}\n"; \
+        else \
+			echo -e "${BOLD}${GRAY}    > - Updating libft.. See $(PULL_LOG) for details!${END}\n"; \
+            git -C $(LIBFT_PATH) pull &> $(PULL_LOG); \
+        fi \
+    fi
 	@make -s -C $(LIBFT_PATH)
 
 bonus: $(CH_NAME)
@@ -117,6 +133,6 @@ $(OBJ_DIR)/checker/%.o: $(CHECKER_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 checksum:
-	@find $(SRC_DIR) -name '*.c' | xargs cat | shasum -a 256 | cut -d ' ' -f 1
+	@find $(SRC_DIR) -name '*.c' | xargs cat ; find $(INC_DIR) -name '*.h' | xargs cat | shasum -a 256 | cut -d ' ' -f 1
 
 .PHONY: all clean fclean re lft bonus
